@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 print(pd.__version__)
 
 # Создание DataFrame из листов и словарей
-
+# Создание DataFrame из листа
 dataList = [
     {'date': '2017-07-01', 'value': 100},
     {'date': '2017-07-02', 'value': 200},
@@ -22,7 +22,11 @@ dataList = [
 ]
 
 print(pd.DataFrame(dataList))
+print(type(dataList))
+print(type(pd.DataFrame(dataList)))
 
+
+# Создание DataFrame из словаря
 # то же самое, но в другом виде
 # задаем столбцы
 
@@ -32,6 +36,8 @@ dataDict = {
 }
 
 print(pd.DataFrame.from_dict(dataDict))
+print(type(dataDict))
+print(type(pd.DataFrame.from_dict(dataDict)))
 
 # для сохранения порядка следования элементов можем использовать лист вместо словаря
 
@@ -55,8 +61,12 @@ headers = ['date', 'value']
 pd.DataFrame.from_records(dataLists, columns=headers)
 print(pd.DataFrame.from_records(dataLists, columns=headers))
 
+
+
 # Создание Series
 # можно использовать Numpy для генерации данных
+print('')
+print('Создание series')
 dataNP = np.random.rand(3)  # генерируем 3 дробных числа
 print(dataNP)
 
