@@ -7,25 +7,10 @@
 # В начале как всегда настроим окружение: импортируем все необходимые библиотеки и немного настроим дефолтное
 # отображение картинок.
 
-# Python 2 and 3 compatibility
-import future
-# from __future__ import (absolute_import, division,
-#                         print_function, unicode_literals)
-#
-# отключим предупреждения Anaconda
-import warnings
-
-warnings.simplefilter('ignore')
-
 # графики в svg выглядят более четкими
 # InlineBackend.figure_format = 'svg'
 
-# увеличим дефолтный размер графиков
-from pylab import rcParams
-
-rcParams['figure.figsize'] = 6, 3
 import pandas as pd
-import seaborn as sns
 
 # После этого загрузим в `dataframe` данные, с которыми будем работать.Для примеров визуализаций я выбрала данные о
 # продажах и оценках видео - игр
