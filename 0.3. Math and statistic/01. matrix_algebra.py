@@ -33,8 +33,7 @@ print(x)
 # 10 - количество строк
 print(x.shape)
 
-
-np.array(
+var = np.array(
     [
         [1, 2],
         [3, 4],
@@ -67,7 +66,7 @@ except Exception as e:
 
 # транспонирование матриц
 
-np.array(
+var = np.array(
     [
         [1, 2],
         [3, 4],
@@ -87,7 +86,7 @@ x.reshape(6)
 
 # результат разный, если добавить 1 в качестве количества строк
 
-x.reshape(1, 6)[0]
+var = x.reshape(1, 6)[0]
 
 ### Скалярное произведение векторов
 
@@ -105,7 +104,7 @@ for pair in zip(a, b):
     print(pair)
 
 # второй шаг
-[pair[0] * pair[1] for pair in zip(a, b)]
+var = [pair[0] * pair[1] for pair in zip(a, b)]
 
 # итоговый результат
 sum([pair[0] * pair[1] for pair in zip(a, b)])
