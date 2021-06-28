@@ -52,33 +52,40 @@ print('')  # чистоя строка
 df = df.dropna()
 print('df.shape() после df.dropna()')  # чистоя строка
 print(df.shape)
+
+
+# Всего в таблице 6825 объектов и 16 признаков для них.Посмотрим на несколько первых записей c помощью метода head, чтобы
+# убедиться, что все распарсилось правильно.
 print('')  # чистоя строка
 df.head()
 
-
+# осуществим преоброзование отдельных типов признаков
 df['User_Score'] = df.User_Score.astype('float64')
 df['Year_of_Release'] = df.Year_of_Release.astype('int64')
 df['User_Count'] = df.User_Count.astype('int64')
 df['Critic_Count'] = df.Critic_Count.astype('int64')
 
-# Всего в таблице 6825 объектов и 16 признаков для них.Посмотрим на несколько первых записей c помощью метода head, чтобы
-# убедиться, что все распарсилось правильно.Для удобства я оставила только те признаки, которые мы будем в дальнейшем
-# использовать.
+
+# Для удобства я оставил только те признаки, которые мы будем в дальнейшем использовать.
 
 useful_cols = ['Name', 'Platform', 'Year_of_Release', 'Genre',
                'Global_Sales', 'Critic_Score', 'Critic_Count',
                'User_Score', 'User_Count', 'Rating'
                ]
-df[useful_cols].head(10)
+
+print(df[useful_cols].head(10))
 
 # Начнем с самого простого и зачастую удобного способа визуализировать данные из `pandas dataframe` — это воспользоваться
-# функцией `plot.` Для примера построим ** график продаж видео игр в различных странах в зависимости от года **.Для
-# начала отфильтруем только нужные нам столбцы, затем посчитаем суммарные продажи по годам и у получившегося `dataframe`
+# функцией `plot.`
+# Для примера построим ** график продаж видео игр в различных странах в зависимости от года **.
+# Для начала отфильтруем только нужные нам столбцы, затем посчитаем суммарные продажи по годам и у получившегося `dataframe`
 # вызовем функцию `plot` без параметров.
 
 # В библиотеку `pandas` встроен wrapper для `matplotlib`.
 
-[x for x in df.columns if 'Sales' in x]
+var = [x for x in df.columns if 'Sales' in x]
+
+print(var)
 
 df1 = df[[x for x in df.columns if 'Sales' in x] + ['Year_of_Release']] \
     .groupby('Year_of_Release').sum()
@@ -123,7 +130,7 @@ ax.set_ylabel('games')
 top_developers_df = df.groupby('Developer')[['Global_Sales']].sum() \
     .sort_values('Global_Sales', ascending=False).head(10)
 
-top_developers_df
+print(top_developers_df)
 
 top_developers_df.style.bar()
 
@@ -148,7 +155,7 @@ import seaborn as sns
 
 # InlineBackend.figure_format = 'png'
 sns_plot = sns.pairplot(
-    df[['Global_Sales', 'Critic_Score', 'User_Score']]);
+    df[['Global_Sales', 'Critic_Score', 'User_Score']])
 sns_plot.savefig('pairplot.png')
 
 # Также с помощью `seaborn` можно построить распределение, для примера посмотрим на ** распределение оценок критиков
@@ -172,7 +179,8 @@ sns.jointplot(x='Critic_Score', y='User_Score',
 # Еще один полезный тип графиков - это __`box plot`__.Давайте ** сравним пользовательские оценки игр для топ - 5
 # крупнейших игровых платформ **.
 
-df.Platform.value_counts().head(5).index.values
+var = df.Platform.value_counts().head(5).index.values
+print(var)
 
 top_platforms = df.Platform.value_counts().sort_values(ascending=False).head(5).index.values
 sns.boxplot(x="Platform", y="Critic_Score",
@@ -195,10 +203,10 @@ platform_genre_sales = df.pivot_table(
     values='Global_Sales',
     aggfunc=sum).fillna(0).applymap(float)
 
-platform_genre_sales
+print(platform_genre_sales)
 
 sns.heatmap(platform_genre_sales, annot=True, fmt=".0f",
-            linewidths=0.5);
+            linewidths=0.5)
 
 ### Полезные ссылки
 # *[Tutirial](https: // seaborn.pydata.org / tutorial.html)
@@ -261,7 +269,7 @@ iplot(fig, show_link=False)
 
 # Также можно сразу сохранить график в виде html - файла.
 
-plotly.offline.plot(fig, filename='years_stats.html', show_link=False);
+plotly.offline.plot(fig, filename='years_stats.html', show_link=False)
 
 # Посмотрим также на __рыночную долю игровых платформ, расчитанную по количеству выпущенных игр и по суммарной выручке__.Для
 # этого построим __`bar chart`__.
@@ -333,13 +341,13 @@ fig = go.Figure(data=data, layout=layout)
 iplot(fig, show_link=False)
 
 # Пока что ничего непонятно, давайте добавим к точкам подписи.
-trace0 = go.Scatter(
-    x=genres_df.Critic_Score,
-    y=genres_df.User_Score,
-    mode='markers+text',
-    text=genres_df.index,
-    textposition='bottom'
-)
+# trace0 = go.Scatter(
+#     x=genres_df.Critic_Score,
+#     y=genres_df.User_Score,
+#     mode='markers+text',
+#     text=genres_df.index,
+#     textposition='bottom'
+# )
 
 data = [trace0]
 layout = {'title': 'Statistics of video games genres'}
@@ -351,8 +359,8 @@ iplot(fig, show_link=False)
 # Далее добавим на график еще одно измерение - размер жанра(суммарный объем продаж, который мы заранее посчитали) и
 # получим bubble chart.
 
-genres_df.index
-
+var = genres_df.index
+print(var)
 trace0 = go.Scatter(
     x=genres_df.Critic_Score,
     y=genres_df.User_Score,
