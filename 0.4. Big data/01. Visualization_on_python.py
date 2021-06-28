@@ -12,20 +12,49 @@
 
 import pandas as pd
 
-# После этого загрузим в `dataframe` данные, с которыми будем работать.Для примеров визуализаций я выбрала данные о
+# После этого загрузим в `dataframe` данные, с которыми будем работать.Для примеров визуализаций я выбрал данные о
 # продажах и оценках видео - игр
 # с[Kaggle Datasets](https: // www.kaggle.com / rush4ratio / video-game-sales-with-ratings).Данные
 # об оценках игр есть не для всех строк, поэтому сразу оставим только те записи, по которым есть полные данные.
 
-df = pd.read_csv('video_games_sales.csv')
-print(df.shape)
+df = pd.read_csv('video_games_sales.csv')  # создаем датафрейм из файла csv
+print(df.shape)  # выводим обобщенную информацию о фрейме: количество записей 16719 и количество колонок
+print('')  # чистоя строка
 
-df.info()
+print('df.info() дает следующую информацию о фрейме')
+df.info()  # выводим подробную информацию о фрейме
 
+# <class 'pandas.core.frame.DataFrame'>
+# RangeIndex: 16719 entries, 0 to 16718
+# Data columns (total 16 columns):
+#  #   Column           Non-Null Count  Dtype
+# ---  ------           --------------  -----
+#  0   Name             16717 non-null  object
+#  1   Platform         16719 non-null  object
+#  2   Year_of_Release  16450 non-null  float64
+#  3   Genre            16717 non-null  object
+#  4   Publisher        16665 non-null  object
+#  5   NA_Sales         16719 non-null  float64
+#  6   EU_Sales         16719 non-null  float64
+#  7   JP_Sales         16719 non-null  float64
+#  8   Other_Sales      16719 non-null  float64
+#  9   Global_Sales     16719 non-null  float64
+#  10  Critic_Score     8137 non-null   float64
+#  11  Critic_Count     8137 non-null   float64
+#  12  User_Score       10015 non-null  object
+#  13  User_Count       7590 non-null   float64
+#  14  Developer        10096 non-null  object
+#  15  Rating           9950 non-null   object
+# dtypes: float64(9), object(7)
+# memory usage: 2.0+ MB
+
+print('')  # чистоя строка
 df = df.dropna()
+print('df.shape() после df.dropna()')  # чистоя строка
 print(df.shape)
-
+print('')  # чистоя строка
 df.head()
+
 
 df['User_Score'] = df.User_Score.astype('float64')
 df['Year_of_Release'] = df.Year_of_Release.astype('int64')
@@ -55,7 +84,7 @@ df1 = df[[x for x in df.columns if 'Sales' in x] + ['Year_of_Release']] \
     .groupby('Year_of_Release').sum()
 df1.head()
 
-df1.plot();
+df1.plot()
 
 # В этом случае мы сконцентрировались на отображении трендов продаж в разных регионах.
 # C помощью параметра kind можно изменить тип графика, например, на bar chart.Matplotlib
